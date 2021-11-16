@@ -1,0 +1,8 @@
+<div class="col-2">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a sec:authorize="hasRole('ADMIN')" class="nav-link" data-toggle="pill" href="#v-pills-admin"
+           aria-controls="v-pills-admin">Admin</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link fade active show" data-toggle="pill" href="#v-pills-user" role="tab"
+           aria-controls="v-pills-user">User</a>
+    </div>
+</div>

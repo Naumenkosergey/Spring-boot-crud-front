@@ -1,0 +1,16 @@
+<div th:fragment="header" class="p-3 bg-dark text-white">
+    <form class="form-inline">
+        <div class=" form-group col-11">
+            <p>
+                <b>
+                    <span th:text="${principal.email}"/>
+                </b>
+                with roles:
+                <em>
+                    <span th:text="${principal.authorities}"/>
+                </em>
+            </p>
+        </div>
+        <a th:href="@{/logout}" type=" button" class="btn btn-outline-secondary">Logout</a>
+    </form>
+</div>

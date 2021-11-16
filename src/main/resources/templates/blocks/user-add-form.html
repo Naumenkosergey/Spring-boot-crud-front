@@ -1,0 +1,38 @@
+<h3 class="title">Add new user</h3>
+<form class="form-center" method="post" th:action="@{/main/new}" th:object="${user}">
+    <div class="container col-xs-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 mt-5 text-center">
+        <div class="from-group text-center">
+            <div class="form-group">
+                <input class="form-control mt-1" type="hidden" th:field="*{id}">
+            </div>
+
+            <div class="form-group">
+                <p>First Name</p>
+                <input class="form-control mt-1" type="text" th:field="*{firstName}">
+            </div>
+            <div class="form-group">
+                <p>Last Name</p>
+                <input class="form-control mt-1" type="text" th:field="*{lastName}">
+            </div>
+            <div class="form-group">
+                <p>Age</p>
+                <input class="form-control mt-1" type="text" th:field="*{age}">
+            </div>
+            <div class="form-group">
+                <p>Email</p>
+                <input class="form-control mt-1" type="email" th:field="*{email}">
+            </div>
+            <div class="form-group">
+                <p>Password</p>
+                <input class="form-control mt-1" type="password" th:field="*{password}">
+            </div>
+            <div th:each="role:${roles}">
+                <input name="authorities" th:checked="${user.hasRole('__${role.authority}__')}"
+                       th:id="${role.authority}"
+                       th:value="${role.authority}" type="checkbox">
+                <label th:for="${role.authority}" th:text="${role.authority}"/>
+            </div>
+            <button type="submit" class="center col-7 btn btn-success">Add new user</button>
+        </div>
+    </div>
+</form>
