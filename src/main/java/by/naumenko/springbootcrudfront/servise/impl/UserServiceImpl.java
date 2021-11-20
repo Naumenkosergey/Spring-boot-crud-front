@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeUser(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
     public User saveUser(User user) {
         String oldPassword = "";
         if (user.getId() != null && getUser(user.getId()) != null) {

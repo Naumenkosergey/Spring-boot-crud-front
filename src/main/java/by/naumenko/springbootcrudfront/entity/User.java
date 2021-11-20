@@ -1,5 +1,6 @@
 package by.naumenko.springbootcrudfront.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,14 +19,20 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Id.class)
     private Long id;
 
     @Column(unique = true)
+    @JsonView(Views.Id.class)
     private String email;
 
+    @JsonView(Views.IdFirstName.class)
     private String firstName;
+    @JsonView(Views.IdLastName.class)
     private String lastName;
+    @JsonView(Views.Age.class)
     private Byte age;
+    @JsonView(Views.Password.class)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -34,12 +41,16 @@ public class User implements UserDetails {
     private Set<Role> authorities = new HashSet<>();
 
     @Transient
+    @JsonView(Views.FullUser.class)
     private boolean isAccountNonExpired = true;
     @Transient
+    @JsonView(Views.FullUser.class)
     private boolean isAccountNonLocked = true;
     @Transient
+    @JsonView(Views.FullUser.class)
     private boolean isCredentialsNonExpired = true;
     @Transient
+    @JsonView(Views.FullUser.class)
     private boolean isEnabled = true;
 
 
