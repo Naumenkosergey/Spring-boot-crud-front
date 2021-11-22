@@ -38,6 +38,7 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", schema = "spring_boot", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonView(Views.Age.class)
     private Set<Role> authorities = new HashSet<>();
 
     @Transient

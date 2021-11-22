@@ -2,18 +2,13 @@ package by.naumenko.springbootcrudfront.controller;
 
 import by.naumenko.springbootcrudfront.entity.User;
 import by.naumenko.springbootcrudfront.entity.Views;
-import by.naumenko.springbootcrudfront.servise.RoleService;
 import by.naumenko.springbootcrudfront.servise.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.View;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,21 +19,26 @@ public class MainRestController {
     private final UserService userService;
 //    private final RoleService roleService;
 
+//    @GetMapping
+//    @JsonView(Views.Age.class)
+//    public ResponseEntity<List<User>> getAll() {
+//        return ResponseEntity.ok(userService.findAll());
+//    }
     @GetMapping
-    @JsonView(Views.Password.class)
+    @JsonView(Views.Age.class)
     public List<User> getAll() {
         return userService.findAll();
     }
 
     @GetMapping("{id}")
-    @JsonView(Views.IdLastName.class)
-    public User getOne(@PathVariable("id") User user) {
-        return user;
+    @JsonView(Views.Password.class)
+    public ResponseEntity<User> getOne(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
     }
 
     @PostMapping
-    public User create(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<User> create(@RequestBody User user) {
+        return ResponseEntity.ok(userService.saveUser(user));
     }
 
     @PutMapping("{id}")
@@ -48,8 +48,8 @@ public class MainRestController {
     }
 
     @DeleteMapping("{id}")
-    public void removeUser(@PathVariable("id") User user) {
-        userService.removeUser(user);
+    public void removeUser(@PathVariable("id") Long id) {
+        userService.removeUser(id);
     }
 }
 //    @PostMapping("/new")
