@@ -10,6 +10,9 @@ public final class Views {
     public interface Age extends IdLastName {}
     public interface Password extends Age {
     }
+    public interface Role extends Age {
+    }
     public interface FullUser extends Password {
     }
+
 }

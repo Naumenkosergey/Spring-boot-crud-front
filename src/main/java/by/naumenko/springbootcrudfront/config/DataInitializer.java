@@ -4,20 +4,21 @@ import by.naumenko.springbootcrudfront.entity.Role;
 import by.naumenko.springbootcrudfront.entity.User;
 import by.naumenko.springbootcrudfront.repo.UserRepository;
 import by.naumenko.springbootcrudfront.servise.RoleService;
+import by.naumenko.springbootcrudfront.servise.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Component
 @AllArgsConstructor
 public class DataInitializer {
 
-    private final PasswordEncoder passwordEncoder;
     private RoleService roleService;
 
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostConstruct
     public void initData() {
@@ -33,22 +34,20 @@ public class DataInitializer {
                 .firstName("Сергей")
                 .lastName("Науменко")
                 .age((byte) 28)
-                .password(passwordEncoder.encode("admin"))
-                .authorities(roleService.addRoles("ROLE_ADMIN","ROLE_USER"))
+                .password("admin")
+                .authorities(Set.of(roleService.getByAuthority("ROLE_ADMIN"),roleService.getByAuthority("ROLE_USER")))
                 .build();
 
-        roleService.instRole(userAdmin);
-        userRepository.save(userAdmin);
+        userService.saveUser(userAdmin);
         User userUser= User.builder()
                 .email("user@mail.ru")
                 .firstName("user")
                 .lastName("user")
                 .age((byte) 12)
-                .password(passwordEncoder.encode("user"))
-                .authorities(roleService.addRoles("ROLE_USER"))
+                .password("user")
+                .authorities(Set.of(roleService.getByAuthority("ROLE_USER")))
                 .build();
 
-        roleService.instRole(userUser);
-        userRepository.save(userUser);
+        userService.saveUser(userUser);
     }
 }

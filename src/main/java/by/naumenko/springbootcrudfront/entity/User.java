@@ -17,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user", schema = "spring_boot")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(Views.Id.class)
@@ -28,13 +29,17 @@ public class User implements UserDetails {
 
     @JsonView(Views.IdFirstName.class)
     private String firstName;
+
     @JsonView(Views.IdLastName.class)
     private String lastName;
+
     @JsonView(Views.Age.class)
     private Byte age;
+
     @JsonView(Views.Password.class)
     private String password;
 
+    @JsonView(Views.Role.class)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", schema = "spring_boot", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

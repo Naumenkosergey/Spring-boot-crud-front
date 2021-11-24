@@ -16,4 +16,5 @@ public interface RoleService {
 
     Set<Role> addRoles(String...authorities);
 
+    Role getByAuthority(String authority);
 }

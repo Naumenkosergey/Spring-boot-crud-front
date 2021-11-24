@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                     .antMatchers("/signin").anonymous()
-                    .antMatchers("/main").hasAnyRole("ADMIN", "USER")
-                    .antMatchers("/home/**").permitAll()
+                    .antMatchers("/api/**").hasRole("ADMIN")
+                    .antMatchers("/").hasAnyRole("ADMIN", "USER")
                     .anyRequest().authenticated();
         http.
                 formLogin()
@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true)
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/signin?logout");
+
+        http.csrf().disable();
     }
     //@formatter:on
 

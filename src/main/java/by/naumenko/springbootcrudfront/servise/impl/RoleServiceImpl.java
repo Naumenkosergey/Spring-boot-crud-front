@@ -60,4 +60,9 @@ public class RoleServiceImpl implements RoleService {
         }
         return roles;
     }
+
+    @Override
+    public Role getByAuthority(String authority) {
+       return roleRepository.getByAuthority(authority);
+    }
 }
